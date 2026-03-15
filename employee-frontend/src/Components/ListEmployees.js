@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from "react";
-import PatientService from "../Services/PatientService.js";
+import EmployeeService from "../Services/EmployeeService.js";
 import StatsModal from "./StatsModal.js";
 import "../CSS/List.css";
 
-const ListPatients = () => {
-  const [patients, setPatients] = useState([]);
-  const [selectedPatient, setSelectedPatient] = useState(null);
+const ListEmployees = () => {
+  const [Employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const loadPatients = () => {
-    PatientService.getPatients()
-      .then(res => setPatients(res.data))
-      .catch(err => console.error("Error fetching patients:", err));
+  const loadEmployees = () => {
+    EmployeeService.getEmployees()
+      .then(res => setEmployees(res.data))
+      .catch(err => console.error("Error fetching Employees:", err));
   };
 
   useEffect(() => {
-    loadPatients();
+    loadEmployees();
   }, []);
 
-  const handleView = (patient) => {
-    setSelectedPatient(patient);
+  const handleView = (Employee) => {
+    setSelectedEmployee(Employee);
     setShowModal(true);
   };
   
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this patient?");
+    const confirmDelete = window.confirm("Are you sure you want to delete this Employee?");
     if (confirmDelete) {
-      PatientService.deletePatient(id)
+      EmployeeService.deleteEmployee(id)
         .then(() => {
-          alert("Patient deleted successfully!");
-          loadPatients();
+          alert("Employee deleted successfully!");
+          loadEmployees();
         })
-        .catch(err => console.error("Error deleting patient:", err));
+        .catch(err => console.error("Error deleting Employee:", err));
     }
   };
 
@@ -40,7 +40,7 @@ const ListPatients = () => {
       <div className="tsble">
         <div className="row justify-content-center">
           <div className="col-12 col-md-10 col-lg-9">
-            <h2> Patient List</h2>
+            <h2> Employee List</h2>
 
           <table className="table table-striped table-hover">
             <thead>
@@ -54,20 +54,20 @@ const ListPatients = () => {
             </thead>
 
             <tbody>
-              {patients.map(patient => (
-                <tr key={patient.id}>
-                  <td>{patient.fullName}</td>
-                  <td>{patient.age}</td>
-                  <td>{patient.gender}</td>
-                  <td>{patient.doctorName}</td>
+              {Employees.map(Employee => (
+                <tr key={Employee.id}>
+                  <td>{Employee.fullName}</td>
+                  <td>{Employee.email}</td>
+                  <td>{Employee.gender}</td>
+                  <td>{Employee.department}</td>
                   <td>
                     <div className="action-buttons">
-                      <button className="view-button" onClick={() => handleView(patient)}>
+                      <button className="view-button" onClick={() => handleView(Employee)}>
                       View
                     </button>
                     <button
                       className="delete-btn"
-                      onClick={() => handleDelete(patient.id)}>
+                      onClick={() => handleDelete(Employee.id)}>
                       Delete
                     </button>
                     </div>
@@ -79,7 +79,7 @@ const ListPatients = () => {
 
           {showModal && (
             <StatsModal
-              patient={selectedPatient}
+              Employee={selectedEmployee}
               onClose={() => setShowModal(false)}
             />
           )}
@@ -93,4 +93,4 @@ const ListPatients = () => {
   );
 };
 
-export default ListPatients;
+export default ListEmployees;

@@ -23,21 +23,15 @@ public class Patient {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(nullable = false)
-    private int age;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
     
-    @Column(name = "insurance_provider")
-    private String insuranceProvider;
-
-    @Column(name = "policy_number")
-    private String policyNumber;
+    @Column(name = "department")
+    private String department;
     
     @Column(name = "doctor_name", nullable = true)
-    private String doctorName;
+    private Double salary;
 
     public Patient() {
     }
@@ -58,14 +52,6 @@ public class Patient {
         this.fullName = fullName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public Gender getGender() {
         return gender;
     }
@@ -74,28 +60,20 @@ public class Patient {
         this.gender = gender;
     }
 
-    public String getInsuranceProvider() {
-        return insuranceProvider;
+    public String getdepartment() {
+        return department;
     }
 
-    public void setInsuranceProvider(String insuranceProvider) {
-        this.insuranceProvider = insuranceProvider;
+    public void setdepartment(String department) {
+        this.department = department;
     }
 
-    public String getPolicyNumber() {
-        return policyNumber;
+    public String getDouble salary() {
+        return Double salary;
     }
 
-    public void setPolicyNumber(String policyNumber) {
-        this.policyNumber = policyNumber;
-    }
-    
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
+    public void setDouble salary(Double salary) {
+        this.salary = salary;
     }
 
 }

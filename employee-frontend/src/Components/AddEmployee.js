@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PatientService from "../Services/PatientService.js";
-import Gender from "../Components/Gender.js";
+import EmployeeService from "../Services/EmployeeService.js";
+import Gender from "./Gender.js";
 import "../CSS/Add.css";
 
-const AddPatient = () => {
+const AddEmployee = () => {
   const navigate = useNavigate();
 
-  const [patient, setPatient] = useState({
+  const [employee, setEmployee] = useState({
     fullName: "",
     age: "",
     gender: "MALE",
@@ -17,50 +17,41 @@ const AddPatient = () => {
   });
 
   function handleChange(e) {
-    setPatient({ ...patient, [e.target.name]: e.target.value });
+    setEmployee({ ...employee, [e.target.name]: e.target.value });
   }
 
  const handleSubmit = (e) => {
     e.preventDefault();
 
-    PatientService.addPatient(patient)
+    EmployeeService.addEmployee(employee)
       .then(() => {
-        alert("Patient added successfully");
+        alert("Employee added successfully");
         navigate("/");
       })
       .catch(err => {
         console.error(err);
-        alert("Failed to add patient");
+        alert("Failed to add employee");
       });
   };
   return (
     <div className="row justify-content-center">
       <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
         <div className="form-container">
-          <h3>Add New Patient</h3>
+          <h3>Add New Employee</h3>
 
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="fullName"
               placeholder="Full Name"
-              value={patient.fullName}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="number"
-              name="age"
-              placeholder="Age"
-              value={patient.age}
+              value={employee.fullName}
               onChange={handleChange}
               required
             />
 
             <select
               name="gender"
-              value={patient.gender}
+              value={employee.gender}
               onChange={handleChange}
             >
               <option value={Gender.MALE}>Male</option>
@@ -70,32 +61,32 @@ const AddPatient = () => {
 
             <input
               type="text"
-              name="insuranceProvider"
-              placeholder="Insurance Provider"
-              value={patient.insuranceProvider}
+              name="email"
+              placeholder="email"
+              value={employee.email}
               onChange={handleChange}
               required
             />
 
             <input
               type="text"
-              name="policyNumber"
-              placeholder="Policy Number"
-              value={patient.policyNumber}
+              name="department"
+              placeholder="department"
+              value={employee.department}
               onChange={handleChange}
             />
 
             <input
               type="text"
-              name="doctorName"
-              placeholder="Handling Doctor"
-              value={patient.doctorName}
+              name="salary"
+              placeholder="salary"
+              value={employee.doctorName}
               onChange={handleChange}
               required
             />
 
             <button type="submit" className="btn btn-success w-100">
-              Add Patient
+              Add Employee
             </button>
           </form>
         </div>
@@ -104,4 +95,4 @@ const AddPatient = () => {
   );
 };
 
-export default AddPatient;
+export default AddEmployee;
